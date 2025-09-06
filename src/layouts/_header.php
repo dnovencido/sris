@@ -8,7 +8,7 @@
     <link href="/assets/fontawesome/css/all.min.css" rel="stylesheet" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-        <!-- overlayScrollbars -->
+    <!-- overlayScrollbars -->
     <link rel="stylesheet" href="assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">

@@ -20,7 +20,7 @@
           <li class="nav-header">Manage Registration</li>
           <li class="nav-item">
             <a href="/add.php" class="nav-link">
-              <i class="fa-solid fa-user-plus"></i>
+              <i class="nav-icon fa-solid fa-user-plus"></i>
               <p>
                 Add Student
                 <span class="badge badge-info right">2</span>
