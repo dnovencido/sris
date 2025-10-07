@@ -99,7 +99,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="role_id">Select Role:</label>
-                                <select name="role_id" id="role_id" class="form-control" required>
+                                <select name="role_id" id="role_id" class="form-control">
                                   <option value="">-- Select Role --</option>
                                   <?php foreach ($roles as $r): ?>
                                     <option value="<?= $r['id'] ?>" <?= ($r['id'] == $current_role_id) ? "selected" : "" ?>>
