@@ -97,13 +97,13 @@ ul {
 }
 
 .sidebar-collapse .brand-link {
-  justify-content: center;
+    justify-content: center;
 }
 
 .sidebar-collapse .brand-link .brand-text {
-  display: none;
+    display: none;
 }
 
 .sidebar-collapse .brand-link .brand-image {
-  margin-right: 0;
+     margin-right: 0;
 }

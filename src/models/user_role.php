@@ -7,19 +7,24 @@
 
         // Remove old role assignment
         $delete_query = "DELETE FROM user_roles WHERE user_id = ?";
-        if ($stmt = $conn->prepare($delete_query)) {
+        if($stmt = $conn->prepare($delete_query)) {
             $stmt->bind_param("i", $user_id);
-            if ($stmt->execute()) {
+            if($stmt->execute()) {
                 $stmt->close();
 
-                // Assign new role
-                $insert_query = "INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)";
-                if ($stmt = $conn->prepare($insert_query)) {
-                    $stmt->bind_param("ii", $user_id, $role_id);
-                    if ($stmt->execute()) {
-                        $flag = true;
+                // Only insert new role if role_id is not empty
+                if (!empty($role_id)) {
+                    $insert_query = "INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)";
+                    if ($stmt = $conn->prepare($insert_query)) {
+                        $stmt->bind_param("ii", $user_id, $role_id);
+                        if ($stmt->execute()) {
+                            $flag = true;
+                        }
+                        $stmt->close();
                     }
-                    $stmt->close();
+                } else {
+                    // No new role assigned, but deletion succeeded
+                    $flag = true;
                 }
             } else {
                 $stmt->close();
@@ -28,6 +33,7 @@
 
         return $flag;
     }
+
 
     function get_user_roles($user_id, $type = 'names') {
         global $conn;
