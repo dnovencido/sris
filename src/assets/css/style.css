@@ -1,0 +1,109 @@
+#pagination ul {
+    margin: 1rem 0;
+    padding: 0;
+}
+
+#pagination ul > li {
+    display: inline-block;
+}
+
+#pagination ul a {
+    border: 1px solid #343a40;
+    border-radius: 20px;
+    display: block;
+    margin: auto;
+    font-size: 0.9rem;
+    padding: 0.3rem 1.2rem;
+    text-decoration: none;
+    color: var(--black);
+    font-weight: bold;
+}
+
+#pagination a.active {
+    background-color: #343a40;
+    color: #FFFFFF;
+}
+
+#pagination li.disabled {
+    pointer-events: none;
+}
+
+.picture {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-initials {
+    border-radius: 50%;
+    background-color: #6c757d; /* fixed gray */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#logo {
+    width: 100px;
+    margin: auto;
+}
+
+#logo > img {
+    width: 100%;
+    object-fit: cover;
+}
+
+#logo-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+#logo-header div {
+    width: 70px;
+}
+
+#logo-header h1 {
+   font-size: 1.3rem;
+   font-weight: bold;
+}
+
+ul {
+    margin-bottom: 0rem;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 100%;
+    gap: 5px;
+}
+
+.brand-link img {
+    width: 30px;
+    height: auto;
+    display: block;
+}
+
+.brand-link .brand-text {
+    font-weight: bold;
+}
+
+.sidebar-collapse .brand-link {
+  justify-content: center;
+}
+
+.sidebar-collapse .brand-link .brand-text {
+  display: none;
+}
+
+.sidebar-collapse .brand-link .brand-image {
+  margin-right: 0;
+}
