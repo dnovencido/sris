@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SRIS - Student Registration and Information System</title>
+    <title>SRIS - Student Registration Information System</title>
     <!-- Font Awesome -->
     <link href="assets/fontawesome/css/all.min.css" rel="stylesheet" />
     <!-- Ionicons -->

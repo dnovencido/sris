@@ -66,40 +66,42 @@
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body p-0">
-                        <table class="table table-striped">
-                          <thead>
-                              <tr>
-                                  <th>#</th>
-                                  <th>First Name</th>
-                                  <th>Middle Name</th>
-                                  <th>Last Name</th>
-                                  <th>Email</th>
-                                  <th>Date Created</th>
-                                  <th>Actions</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                            <?php if(!empty($users)) { ?>
-                              <?php foreach($users as $key => $value ) { ?>
-                                  <tr>
-                                      <td><?= ++$key ?></td>
-                                      <td><?= $value['fname'] ?></td>
-                                      <td><?= $value['mname'] ?></td>
-                                      <td><?= $value['lname'] ?></td>
-                                      <td><?= $value['email'] ?></td>
-                                      <td><?= date('M d, Y @ h:i a', strtotime($value['date_created'])) ?></td>
-                                      <td class="action-buttons">
-                                        <a href="edit_user.php?id=<?= $value['id'] ?>" class="btn bg-gradient-primary btn-sm">
-                                          <i class="fa-solid fa-user-pen"></i>
-                                        </a>
-                                      </td>
-                                  </tr>
-                              <?php } ?>
-                            <?php } else { ?>
-                                <td colspan="6">No user(s) to display.</td>
-                            <?php } ?>                
-                          </tbody>
-                        </table>
+                        <div class="card-body table-responsive p-0">
+                          <table class="table table-striped table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Date Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <?php if(!empty($users)) { ?>
+                                <?php foreach($users as $key => $value ) { ?>
+                                    <tr>
+                                        <td><?= ++$key ?></td>
+                                        <td><?= $value['fname'] ?></td>
+                                        <td><?= $value['mname'] ?></td>
+                                        <td><?= $value['lname'] ?></td>
+                                        <td><?= $value['email'] ?></td>
+                                        <td><?= date('M d, Y @ h:i a', strtotime($value['date_created'])) ?></td>
+                                        <td class="action-buttons">
+                                          <a href="edit_user.php?id=<?= $value['id'] ?>" class="btn bg-gradient-primary btn-sm">
+                                            <i class="fa-solid fa-user-pen"></i>
+                                          </a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                              <?php } else { ?>
+                                  <td colspan="6">No user(s) to display.</td>
+                              <?php } ?>                
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                       <!-- /.card-body -->
                     </div>

@@ -7,7 +7,7 @@
   include "require_login.php";
 
   if (!isset($_GET['id'])) {
-      die("No user selected");
+    die("No user selected");
   }
 
   $user_id = (int)$_GET['id'];
@@ -16,8 +16,8 @@
     $role_id = (int)$_POST['role_id'];
     if(update_profile($user_id, $_POST['fname'], $_POST['mname'], $_POST['lname'], $_POST['employee_id'], $_POST['email'], $_POST['password']) && update_user_role($user_id, $role_id)) {
       $_SESSION['flash_message'] = [
-          'type' => 'success',
-          'text' => 'You have successfully updated a user.'
+        'type' => 'success',
+        'text' => 'You have successfully updated a user.'
       ];
       header("Location: users.php?success=role_updated");
       exit;

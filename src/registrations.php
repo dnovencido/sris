@@ -138,54 +138,56 @@
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body p-0">
-                        <table class="table table-striped">
-                          <thead>
-                              <tr>
-                                  <th>#</th>
-                                  <th>Picture</th>
-                                  <th>ULI Number</th>
-                                  <th>Last Name</th>
-                                  <th>First Name</th>
-                                  <th>Middle Name</th>
-                                  <th>Date Created</th>
-                                  <th>Form Completion</th>
-                                  <th>Actions</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                            <?php if(!empty($registrations)) { ?>
-                              <?php foreach($registrations as $key => $value ) { ?>
-                                  <tr>
-                                      <td><?= ++$key ?></td>
-                                      <td>
-                                        <?= renderProfile(['picture' => $value['picture'], 'first_name' => $value['first_name'], 'last_name' => $value['last_name']]) ?>
-                                      </td>
-                                      <td><?= $value['uli_number'] ?></td>
-                                      <td><?= $value['last_name'] ?></td>
-                                      <td><?= $value['first_name'] ?></td>
-                                      <td><?= $value['middle_name'] ?></td>
-                                      <td><?= date('M d, Y @ h:i a', strtotime($value['date_created'])) ?></td>
-                                      <td class="project_progress">
-                                        <?php $value_completion = get_registration_completion($value['id']) ?>
-                                        <div class="progress progress-sm">
-                                          <div class="progress-bar bg-green" role="progressbar" aria-valuenow="<?=$value_completion?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $value_completion?>%">
+                        <div class="card-body table-responsive p-0">
+                          <table class="table table-striped table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Picture</th>
+                                    <th>ULI Number</th>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Date Created</th>
+                                    <th>Form Completion</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <?php if(!empty($registrations)) { ?>
+                                <?php foreach($registrations as $key => $value ) { ?>
+                                    <tr>
+                                        <td><?= ++$key ?></td>
+                                        <td>
+                                          <?= renderProfile(['picture' => $value['picture'], 'first_name' => $value['first_name'], 'last_name' => $value['last_name']]) ?>
+                                        </td>
+                                        <td><?= $value['uli_number'] ?></td>
+                                        <td><?= $value['last_name'] ?></td>
+                                        <td><?= $value['first_name'] ?></td>
+                                        <td><?= $value['middle_name'] ?></td>
+                                        <td><?= date('M d, Y @ h:i a', strtotime($value['date_created'])) ?></td>
+                                        <td class="project_progress">
+                                          <?php $value_completion = get_registration_completion($value['id']) ?>
+                                          <div class="progress progress-sm">
+                                            <div class="progress-bar bg-green" role="progressbar" aria-valuenow="<?=$value_completion?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $value_completion?>%">
+                                            </div>
                                           </div>
-                                        </div>
-                                        <small>
-                                            <?= $value_completion ?>% Completed
-                                        </small>
-                                      </td>
-                                      <td class="action-buttons">
-                                          <a href="edit.php?id=<?= $value['id'] ?>" class="btn bg-gradient-primary btn-sm"><i class="fa-solid fa-user-pen"></i></a>
-                                          <a href="#" class="btn bg-gradient-danger btn-sm btn-delete" data-id="<?= $value['id'] ?>"><i class="fa-solid fa-trash"></i></a>
-                                      </td>
-                                  </tr>
-                              <?php } ?>
-                            <?php } else { ?>
-                                <td colspan="6">No student registration(s) to display.</td>
-                            <?php } ?>                
-                          </tbody>
-                        </table>
+                                          <small>
+                                              <?= $value_completion ?>% Completed
+                                          </small>
+                                        </td>
+                                        <td class="action-buttons">
+                                            <a href="edit.php?id=<?= $value['id'] ?>" class="btn bg-gradient-primary btn-sm"><i class="fa-solid fa-user-pen"></i></a>
+                                            <a href="#" class="btn bg-gradient-danger btn-sm btn-delete" data-id="<?= $value['id'] ?>"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                              <?php } else { ?>
+                                  <td colspan="6">No student registration(s) to display.</td>
+                              <?php } ?>                
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                       <!-- /.card-body -->
                       </div>
