@@ -4,7 +4,7 @@
   include "require_role.php"; 
   include "require_login.php"; 
 
-  require_role($_SESSION['id'], ['super_admin', 'admin', 'employee'], 'student registration');
+  require_role($_SESSION['id'], ['super_admin', 'administrator', 'employee'], 'student registration');
 
   if(isset($_POST['submit'])) {
     foreach (['entry_date', 'dob'] as $date_field) {
