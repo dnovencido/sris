@@ -78,7 +78,7 @@
                 </div>
             </form>
             <p class="mb-1">
-                <a href="/register.php" class="text-center">Register an account</a>
+                <a href="register.php" class="text-center">Register an account</a>
             </p>
         </div>
         <!-- /.card-body -->
