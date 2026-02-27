@@ -32,7 +32,7 @@
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['fname'] = $user['fname'];
                     $_SESSION['flash_message'] = "You have successfully created an account.";
-                    header("Location: registrations.php");
+                    header("Location: /imports/");
                     exit;
                 } else {
                     $errors[] = "There was an error logging in your account.";

@@ -1,6 +1,25 @@
 <IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME}.php -f
-  RewriteRule ^([^\.]+)$ $1.php [NC,L]
+RewriteEngine On
+
+# ================================
+# Ignore real files/folders
+# ================================
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# ================================
+# Imports
+# ================================
+RewriteRule ^imports/?$ imports.php [L]
+RewriteRule ^imports/view/([0-9]+)/?$ imports_view.php?id=$1 [L,QSA]
+RewriteRule ^imports/view/([0-9]+)/generate-egace-report?$ imports_view_generate_egace_report.php?id=$1 [L,QSA]
+RewriteRule ^imports/view/([0-9]+)/generate-assessment-certification-report?$ imports_view_generate_assessment_certification_report.php?id=$1 [L,QSA]
+RewriteRule ^imports/edit/([0-9]+)/?$ imports_edit.php?id=$1 [L,QSA]
+RewriteRule ^imports/delete/([0-9]+)/?$ delete_import.php?id=$1 [L,QSA]
+
+# ================================
+# Generic fallback (LAST)
+# ================================
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
 </IfModule>

@@ -20,7 +20,7 @@
             if(!empty($user)) {
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['fname'] = $user['fname'];
-                header("Location: registrations.php");
+                header("Location: /imports");
                 exit;
             } else {    
                 $errors[] = "The email that you've entered does not match any account.";
