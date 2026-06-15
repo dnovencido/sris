@@ -77,3 +77,9 @@ ul {
 .sidebar-collapse .brand-link .brand-image {
      margin-right: 0;
 }
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
