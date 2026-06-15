@@ -267,7 +267,7 @@
                   <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/imports">Imports</a></li>
-                        <li class="breadcrumb-item"><a href="/imports/view/<?= $_GET['id'] ?>">Records</a></li>
+                        <li class="breadcrumb-item"><a href="/imports/view/egace/<?= $_GET['id'] ?>">EGACE</a></li>
                         <li class="breadcrumb-item active">Generate EGACE Report</li>
                     </ol>
                   </div>

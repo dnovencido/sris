@@ -40,7 +40,7 @@
             <div id="logo">
                 <img src="assets/images/logo.svg" alt="">
             </div>
-            <h1>Student Registration Information System</h1>
+            <h1 class="mt-3">Student Registration Information System</h1>
         </div>
         <div class="card-body">
             <p class="login-box-msg">Sign in to your account</p>

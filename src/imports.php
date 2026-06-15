@@ -10,16 +10,19 @@
 
   $filter = [];
 
+  $query_params = [];
+
   if(isset($_GET['query']) && $_GET['query'] !== '') {
     $filter['search'] = [
       ['source_file'],
       $_GET['query']
     ];
+    $query_params['query'] = trim($_GET['query']);
   }
 
   // Date
   if(!empty($_GET['date'])) {
-
+      $query_params['date'] = trim($_GET['date']);
       $range = trim($_GET['date']);
       $dates = explode(' - ', $range);
 
@@ -45,12 +48,11 @@
       }
   }
 
-  if(isset($_GET['page_no'])) {
-    $page_no = $_GET['page_no'];
-  } else {
-    $page_no = 1;
+  $page_no = isset($_GET['page_no']) ? (int) $_GET['page_no'] : 1;
+  if ($page_no < 1) {
+      $page_no = 1;
   }
-    
+
   $offset = get_offset($page_no); // calculate the offset based on the current page number
 
   $imports_data = get_all_imports($filter, ['offset'=> $offset, 'total_records_per_page' => TOTAL_RECORDS_PER_PAGE]);
@@ -59,6 +61,7 @@
   $total_imports = $imports_data['total'] ?? 0;
 
   $pagy = pagination($total_imports, $page_no); // setup pagination
+  $base_url = strtok($_SERVER['REQUEST_URI'], '?');
 ?>
 <?php include 'layouts/_header.php'; ?>
   <body class="hold-transition sidebar-collapse sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -146,6 +149,7 @@
                                     <th>#</th>
                                     <th>Source File</th>
                                     <th>Name</th>
+                                    <th>Import Type</th>
                                     <th>Total Records</th>
                                     <th>Records Imported</th>
                                     <th>Timestamp</th>
@@ -159,21 +163,34 @@
                                 <?php foreach($imports as $key => $value ) { ?>
                                     <tr>
                                         <td><?= ++$key ?></td>
-                                        <td><?= $value['source_file'] ?></td>
+                                        <td><?= htmlspecialchars($value['source_file'], ENT_QUOTES) ?></td>
                                         <td><?= display($value['name']) ?></td>
-                                        <td><?= $value['total_records'] ?></td>
-                                        <td><?= $value['records_imported'] ?></td>
+                                        <td>
+                                          <?php if($value['target_table'] === 'records') { ?>
+                                            <span class="badge bg-success">EGACE</span>
+                                          <?php } else { ?>
+                                            <span class="badge bg-primary">Assessment Certificates</span>
+                                          <?php } ?>
+                                        </td>
+                                        <td><?= (int)$value['total_records'] ?></td>
+                                        <td><?= (int)$value['records_imported'] ?></td>
                                         <td><?= date('M d, Y @ h:i a', strtotime($value['import_timestamp'])) ?></td>
-                                        <td><?= $value['import_status'] ?></td>
+                                        <td><?= htmlspecialchars($value['import_status'], ENT_QUOTES) ?></td>
                                         <td><?= date('M d, Y', strtotime($value['created_at'])) ?></td>
                                         <td class="action-buttons">
-                                            <a href="/imports/view/<?= $value['id'] ?>" class="btn bg-gradient-info btn-sm"><i class="fa-solid fa-eye"></i></a>
-                                            <a href="/imports/edit/<?= $value['id'] ?>" class="btn bg-gradient-primary btn-sm"><i class="fa-solid fa-user-pen"></i></a>
+                                          <?php if($value['target_table'] === 'records') { ?>
+                                            <a href="/imports/view/egace/<?= $value['id'] ?>" class="btn bg-gradient-info btn-sm" title="View EGACE import details"><i class="fa-solid fa-eye"></i></a>
+                                          <?php } else { ?>
+                                            <a href="/imports/view/assessment-certificates/<?= $value['id'] ?>" class="btn bg-gradient-info btn-sm" title="View assessment certificate import details"><i class="fa-solid fa-eye"></i></a>
+                                          <?php } ?>
+                                            <a href="/imports/edit/<?= $value['id'] ?>" class="btn bg-gradient-primary btn-sm" title="Edit import metadata"><i class="fa-solid fa-user-pen"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
                               <?php } else { ?>
-                                  <td colspan="9">No imported data to display.</td>
+                                  <tr>
+                                    <td colspan="10" class="text-center">No imported data to display.</td>
+                                  </tr>
                               <?php } ?>                
                             </tbody>
                           </table>
@@ -185,22 +202,22 @@
                           <div id="pagination">
                             <ul class="pagination pagination-sm m-0">
                               <li class="page-item <?= ($page_no <= 1) ? "disabled" : "" ?>"> 
-                                  <a href="<?= ($page_no > 1) ? '?page_no='.$pagy['previous_page'] : '' ?>" class="page-link">Previous</a>
+                                  <a href="<?= ($page_no > 1) ? $base_url . '?' . http_build_query(array_merge($query_params, ['page_no' => $pagy['previous_page']])) : '#' ?>" class="page-link">Previous</a>
                               </li>
                               <!-- Page numbers -->
                               <?php for ($counter = 1; $counter <= $pagy['total_no_of_pages']; $counter++) { ?>
-                                  <?php if ($counter == $page_no) { ?>
+                                      <?php if ($counter == $page_no) { ?>
                                       <li class="page-item"><a class="page-link active"> <?= $counter ?> </a></li>
                                   <?php } else { ?>
-                                      <li class="page-item"><a href='?page_no=<?=$counter?>' class="page-link"><?= $counter ?></a></li>
+                                      <li class="page-item"><a href="<?= $base_url . '?' . http_build_query(array_merge($query_params, ['page_no' => $counter])) ?>" class="page-link"><?= $counter ?></a></li>
                                   <?php } ?>
                               <?php } ?>
                               <!-- Next and last button -->
                               <?php if($page_no < $pagy['total_no_of_pages']) { ?>
                                   <li class="page-item <?= ($page_no >= $pagy['total_no_of_pages']) ? "disabled" : "" ?>">
-                                      <a href="<?= ($page_no < $pagy['total_no_of_pages']) ?  "?page_no=".$pagy['next_page'] : ""?>" class="page-link"> Next  &rsaquo;&rsaquo; </a>
+                                      <a href="<?= $base_url . '?' . http_build_query(array_merge($query_params, ['page_no' => $pagy['next_page']])) ?>" class="page-link"> Next  &rsaquo;&rsaquo; </a>
                                   </li>
-                                  <li class="page-item"><a href="?page_no=<?=$pagy['total_no_of_pages']?>" class="page-link">Last</a></li>
+                                  <li class="page-item"><a href="<?= $base_url . '?' . http_build_query(array_merge($query_params, ['page_no' => $pagy['total_no_of_pages']])) ?>" class="page-link">Last</a></li>
                               <?php } ?>
                             </ul>
                           </div>
