@@ -1,9 +1,7 @@
 <?php
 // Database configuration
-$servername = "mysql_db";
-$username = "root";
-$password = "root";
-$dbname = "db_sris";
+include 'db/db.php';
+
 
 // Set header to return JSON
 header('Content-Type: application/json');
@@ -15,7 +13,7 @@ ini_set('log_errors', 1);
 ini_set('error_log', '/var/log/php_errors.log');
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $db);
 
 // Check connection
 if ($conn->connect_error) {
