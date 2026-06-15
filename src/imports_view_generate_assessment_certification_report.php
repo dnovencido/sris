@@ -471,7 +471,8 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/imports">Imports</a></li>
                         <li class="breadcrumb-item"><a href="/imports/view/assessment-certificates/<?= $_GET['id'] ?>">Assessment and Certificates</a></li>
-                        <li class="breadcrumb-item active">Generate Assessment and Certification Accomplishment Report</li>
+                        <?php $title = "Generate Assessment and Certification Accomplishment Report" ?>
+                        <li class="breadcrumb-item active"><?= htmlspecialchars(substr($title, 0, 30), ENT_QUOTES) ?><?= strlen($title) > 30 ? '...' : '' ?></li>
                     </ol>
                   </div>
                 </div>
