@@ -12,6 +12,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # ================================
 RewriteRule ^imports/?$ imports.php [L]
 RewriteRule ^imports/view/([0-9]+)/?$ imports_view.php?id=$1 [L,QSA]
+RewriteRule ^imports/view/egace/([0-9]+)/?$ imports_view_egace.php?id=$1 [L,QSA]
+RewriteRule ^imports/view/assessment-certificates/([0-9]+)/?$ imports_view_assessment_certificates.php?id=$1 [L,QSA]
 RewriteRule ^imports/view/([0-9]+)/generate-egace-report?$ imports_view_generate_egace_report.php?id=$1 [L,QSA]
 RewriteRule ^imports/view/([0-9]+)/generate-assessment-certification-report?$ imports_view_generate_assessment_certification_report.php?id=$1 [L,QSA]
 RewriteRule ^imports/edit/([0-9]+)/?$ imports_edit.php?id=$1 [L,QSA]

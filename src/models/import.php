@@ -125,7 +125,7 @@
 
         $stmt->execute();
         $countResult = $stmt->get_result()->fetch_assoc();
-        $documents['total'] = $countResult['total'] ?? 0;
+        $imports['total'] = $countResult['total'] ?? 0;
         $stmt->close();
 
         // Pagination
@@ -144,12 +144,12 @@
         $result = $stmt->get_result();
 
         while ($row = $result->fetch_assoc()) {
-            $documents['result'][] = $row;
+            $imports['result'][] = $row;
         }
 
         $stmt->close();
 
-        return $documents;
+        return $imports;
     }
 
     function get_import_count() {
