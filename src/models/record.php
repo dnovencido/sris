@@ -263,4 +263,43 @@
         return $data;
     }
 
+    function get_classification_of_clients_counts($import_id) {
+        global $conn;
+
+        $counts = [];
+
+        $stmt = $conn->prepare("SELECT classification_of_clients FROM records WHERE import_id = ?");
+        if (!$stmt) { return $counts; }
+
+        $stmt->bind_param('i', $import_id);
+        $stmt->execute();
+        $res = $stmt->get_result();
+
+        while ($r = $res->fetch_assoc()) {
+            $raw = $r['classification_of_clients'];
+            if ($raw === null || trim($raw) === '') {
+                $label = 'Unknown';
+                if (!isset($counts[$label])) $counts[$label] = 0;
+                $counts[$label]++;
+                continue;
+            }
+
+            // split by comma only (values are comma-separated)
+            $parts = preg_split('/,/', $raw);
+            foreach ($parts as $p) {
+                $label = trim($p);
+                if ($label === '') { $label = 'Unknown'; }
+                if (!isset($counts[$label])) $counts[$label] = 0;
+                $counts[$label]++;
+            }
+        }
+
+        $stmt->close();
+
+        // sort by descending count
+        arsort($counts);
+
+        return $counts;
+    }
+
 ?>

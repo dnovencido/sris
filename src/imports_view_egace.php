@@ -65,6 +65,9 @@
       }
       $stmt->close();
     }
+
+    // classification_of_clients aggregation moved to model
+    $dashboard_stats['classification_of_clients'] = get_classification_of_clients_counts($import_id);
   }
 
 ?>
@@ -96,7 +99,7 @@
             <section class="content">
               <div class="container-fluid">
                 <div class="row">
-                  <div class="col-lg-4">
+                  <div class="col-lg-6">
                     <div class="card card-outline card-secondary">
                       <div class="card-header"><h3 class="card-title">Qualification Program</h3></div>
                       <div class="card-body">
@@ -104,14 +107,22 @@
                       </div>
                     </div>  
                   </div>  
-                  <div class="col-lg-4">
+                  <div class="col-lg-6">
                     <div class="card card-outline card-secondary">
                       <div class="card-header"><h3 class="card-title">Gender Distribution</h3></div>
                       <div class="card-body"><canvas id="egaceSexChart" style="min-height:300px;"></canvas></div>
                     </div>
                   </div>
-
-                  <div class="col-lg-4">
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="card card-outline card-info">
+                      <div class="card-header"><h3 class="card-title">Classification of Clients</h3></div>
+                      <div class="card-body"><canvas id="egaceClassificationChart" style="min-height:150px;"></canvas></div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
                     <div class="card card-outline card-success">
                       <div class="card-header"><h3 class="card-title">Qualification Program</h3></div>
                       <div class="card-body"><canvas id="egaceQualificationChart" style="min-height:300px;"></canvas></div>
@@ -300,6 +311,8 @@
             const deliveryData = <?= json_encode(array_values($dashboard_stats['delivery_mode'] ?? [])) ?>;
             const qualLabels = <?= json_encode(array_keys($dashboard_stats['qualification_program_title'] ?? [])) ?>;
             const qualData = <?= json_encode(array_values($dashboard_stats['qualification_program_title'] ?? [])) ?>;
+            const classLabels = <?= json_encode(array_keys($dashboard_stats['classification_of_clients'] ?? [])) ?>;
+            const classData = <?= json_encode(array_values($dashboard_stats['classification_of_clients'] ?? [])) ?>;
 
             const colors = ['#007bff','#28a745','#ffc107','#dc3545','#6f42c1','#17a2b8','#fd7e14','#20c997','#e83e8c','#343a40'];
             const getColors = labels => labels.map((_,i) => colors[i % colors.length]);
@@ -328,6 +341,15 @@
                 type: 'bar',
                 data: { labels: qualLabels, datasets: [{ label: 'Count', data: qualData, backgroundColor: getColors(qualLabels) }] },
                 options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+              });
+            }
+
+            const classCanvas = document.getElementById('egaceClassificationChart');
+            if (classCanvas && classLabels.length) {
+              new Chart(classCanvas.getContext('2d'), {
+                type: 'doughnut',
+                data: { labels: classLabels, datasets: [{ data: classData, backgroundColor: getColors(classLabels) }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
               });
             }
           });
