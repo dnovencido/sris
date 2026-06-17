@@ -182,7 +182,7 @@ try {
         // Records table mapping
         $field_mapping = [
             'region' => 'Region',
-            'province_m' => 'Province_M',
+            'province_m' => 'Province',
             'congressional_district' => 'Congressional District',
             'municipality_city' => 'Municipality City',
             'name_of_provider' => 'Name of Provider',
@@ -205,9 +205,9 @@ try {
             'email' => 'E mail Address',
             'street_no_and_street_address' => 'Street No and Street address',
             'barangay' => 'Barangay',
-            'municipality' => 'Municipality City.1',
+            'municipality' => 'Municipality City_2',
             'district' => 'District',
-            'province' => 'Province_N',
+            'province' => 'Province_2',
             'sex' => 'Sex',
             'date_of_birth' => 'Date of Birth',
             'age' => 'Age',
