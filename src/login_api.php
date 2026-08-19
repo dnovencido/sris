@@ -1,6 +1,4 @@
 <?php
-// Database configuration
-include 'db/db.php';
 // api/login.php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -12,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
+// Database configuration
+include 'db/db.php';
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
