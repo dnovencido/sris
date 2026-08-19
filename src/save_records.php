@@ -2,7 +2,6 @@
 // Database configuration
 include 'db/db.php';
 
-
 // Set header to return JSON
 header('Content-Type: application/json');
 

@@ -1,4 +1,6 @@
 <?php
+// Database configuration
+include 'db/db.php';
 // api/login.php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -10,12 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-
-// Database configuration - UPDATE WITH YOUR ACTUAL CREDENTIALS
-$servername = "mysql_db";  // or "localhost"
-$username = "root";
-$password = "root";
-$dbname = "db_sris";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
