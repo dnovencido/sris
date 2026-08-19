@@ -136,15 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Generate token
         $token = bin2hex(random_bytes(32));
         
-        // Optional: Update last login timestamp
-        $update_sql = "UPDATE users SET last_login = NOW() WHERE id = ?";
-        $update_stmt = $conn->prepare($update_sql);
-        if ($update_stmt) {
-            $update_stmt->bind_param("i", $user['id']);
-            $update_stmt->execute();
-            $update_stmt->close();
-        }
-        
         // Prepare success response
         $response['success'] = true;
         $response['message'] = 'Login successful';
