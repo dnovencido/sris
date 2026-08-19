@@ -83,6 +83,7 @@ if ($metadata_table_check->num_rows == 0) {
         records_imported INT,
         import_timestamp VARCHAR(50),
         import_status VARCHAR(50),
+        user_id INT,
         error_message TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
@@ -110,8 +111,9 @@ try {
         records_imported, 
         import_timestamp, 
         import_status, 
+        user_id,
         error_message
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     
     $meta_stmt = $conn->prepare($import_metadata_sql);
     if ($meta_stmt) {
@@ -120,15 +122,17 @@ try {
         $records_imported = 0;
         $import_timestamp = isset($metadata['timestamp']) ? $metadata['timestamp'] : date('Y-m-d H:i:s');
         $import_status = 'processing';
+        $user_id = $metadata['user_id'];
         $error_message = '';
         
-        $meta_stmt->bind_param('ssiisss', 
+        $meta_stmt->bind_param('ssiissis', 
             $target_table,
             $source_file, 
             $total_records, 
             $records_imported,
             $import_timestamp,
             $import_status,
+            $user_id,
             $error_message
         );
         
